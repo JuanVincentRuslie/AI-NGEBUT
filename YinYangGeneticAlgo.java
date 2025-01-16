@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-import java.util.BitSet;
+// import java.util.BitSet;
 import java.util.Random;
 
 class YinYangGeneticAlgo {
@@ -9,7 +9,7 @@ class YinYangGeneticAlgo {
     private int gridSize;
     private Random rand;
     private ArrayList<YinYangChromosome> population;
-    private YinYangFitness fitnessEvaluator;
+    private YinYangFitnessFunction fitnessEvaluator;
 
     public YinYangGeneticAlgo(int populationSize, double crossoverRate, double mutationRate, 
                      int gridSize, long seed) {
@@ -18,7 +18,7 @@ class YinYangGeneticAlgo {
         this.mutationRate = mutationRate;
         this.gridSize = gridSize;
         this.rand = new Random(seed);
-        this.fitnessEvaluator = new YinYangFitness();
+        this.fitnessEvaluator = new YinYangFitnessFunction();
         this.population = new ArrayList<>();
     }
 

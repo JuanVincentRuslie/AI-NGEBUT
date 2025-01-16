@@ -19,7 +19,7 @@ public class YinYangSolver {
 
         System.out.println("please enter puzzle placement ('.' for null, 'w' for white, 'b' for black ) : ");
 
-        int i,j,k;
+        int i,j;
         for(i = 0; i < gridsize; i++){
             for(j = 0; j < gridsize; j++){
                 papan[i][j] = scanner.next().charAt(0);
@@ -60,9 +60,9 @@ public class YinYangSolver {
         for(i = 0; i < gridsize; i++){
             for(j = 0; j < gridsize; j++){
                 if(papan[i][j] == 'w'){
-                    stateAwal.setPrePlacedCell(i,j,false);
+                    stateAwal.setPrePlacedCell(j,i,true);
                 }else if(papan[i][j] == 'b'){
-                    stateAwal.setPrePlacedCell(i,j,true);
+                    stateAwal.setPrePlacedCell(j,i,false);
                 }
             }
         }
@@ -72,15 +72,34 @@ public class YinYangSolver {
         YinYangGeneticAlgo GA = new YinYangGeneticAlgo(populationsize, crossoverRate, mutationRate, gridsize, randomseed);
         GA.initializePopulation();
 
-        double targetFitness = gridsize*gridsize;
+        double targetFitness = 100;
         int maxgeneration = 1000;
 
         YinYangChromosome solution = GA.findSolution(maxgeneration, targetFitness);
+        printSolution(solution);
+        
+    }
 
-        if (solution != null) {
-            System.out.println("Solution found");
-        } else {
+    private static void printSolution(YinYangChromosome solution) {
+        if (solution == null) {
             System.out.println("No solution found");
+            return;
+        }
+        
+        System.out.println("Solution found with fitness: " + solution.getFitness());
+        System.out.println("Grid:");
+        
+        for (int y = 0; y < solution.getGridSize(); y++) {
+            for (int x = 0; x < solution.getGridSize(); x++) {
+                if (solution.getCellColor(x, y)) {
+                    System.out.print("W "); 
+                } else {
+                    System.out.print("B "); 
+                }
+            }
+            System.out.println();
         }
     }
 }
+
+

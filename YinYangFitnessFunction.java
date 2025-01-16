@@ -1,29 +1,23 @@
-import java.util.BitSet;
+import java.util.*;
 
-public class YinYang3 {
-
-    private YinYangChromosome chromosome;
-    private int  panjang;
-    private BitSet papan;
-
-    public YinYang3(YinYangChromosome chromosome){
-        this.panjang = chromosome.getGridSize();
-        this.papan = chromosome.getBits();
-    }
+public class YinYangFitnessFunction {
     
-    public double fitnessFunction(){
+   
+
+    
+    public double evaluate(YinYangChromosome chromosome){
         int fitness = 0;
         // putih disconected
-        fitness += disconected_area(papan, true, panjang);
+        fitness += disconected_area(chromosome.getBits(), true, chromosome.getGridSize());
         // hitam disconected
-        fitness += disconected_area(papan, false, panjang);
+        fitness += disconected_area(chromosome.getBits(), false, chromosome.getGridSize());
 
         // daerah puth
-        fitness += penaltyDaerah(papan, true, panjang);
+        fitness += penaltyDaerah(chromosome.getBits(), true, chromosome.getGridSize());
         // daerah hitam
-        fitness += penaltyDaerah(papan, false, panjang);
+        fitness += penaltyDaerah(chromosome.getBits(), false, chromosome.getGridSize());
         
-        return (((panjang*panjang*1.0)-(fitness*1.0))*100/(panjang*panjang));
+        return (((chromosome.getGridSize()*chromosome.getGridSize()*1.0)-(fitness*1.0))*100/(chromosome.getGridSize()*chromosome.getGridSize()));
         // return fitness;
     }
 
@@ -130,4 +124,5 @@ public class YinYang3 {
         }
         return jumlahTitik;
     }
+
 }

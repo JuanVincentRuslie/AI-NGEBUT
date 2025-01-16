@@ -19,6 +19,7 @@ class YinYangChromosome {
         int index = y * gridSize + x;
         bits.set(index, isWhite);
         fixedPositions.set(index, true);
+        
     }
 
     public boolean getCellColor(int x, int y) {
@@ -52,5 +53,7 @@ class YinYangChromosome {
     public BitSet getFixedPositions() {
         return fixedPositions;
     }
+
+    
     
 }

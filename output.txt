@@ -1,0 +1,19 @@
+please enter puzzle size : 
+please enter puzzle placement ('.' for null, 'w' for white, 'b' for black ) : 
+enter population size : 
+enter crossover rate : 
+enter mutation rate : 
+enter seed : 
+test data : 
+puzzle : 
+. . . w . . 
+. . w w . . 
+. b . . b . 
+. . . b . . 
+. . w w w . 
+. . . . . w 
+6
+40
+0.7
+0.001
+3
