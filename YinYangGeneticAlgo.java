@@ -40,6 +40,7 @@ class YinYangGeneticAlgo {
                     chromosome.getFixedPositions().set(j, true);
                 }
             }
+            chromosome.setGeneration(0);
             population.add(chromosome);
         }
         evaluatePopulation();
@@ -229,7 +230,7 @@ class YinYangGeneticAlgo {
                         return bestSolution;
                     }
                 }
-                
+                child.setGeneration(child.getGeneration()+1);
                 newPopulation.add(child);
             }
             

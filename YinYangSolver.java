@@ -88,7 +88,7 @@ public class YinYangSolver {
         
         System.out.println("Solution found with fitness: " + solution.getFitness());
         System.out.println("Grid:");
-        
+        System.out.println("Generation: "+solution.getGeneration());
         for (int x = 0; x < solution.getGridSize(); x++) {
             for (int y = 0; y < solution.getGridSize(); y++) {
                 if (solution.getCellColor(x, y)) {

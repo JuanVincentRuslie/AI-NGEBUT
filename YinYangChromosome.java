@@ -7,6 +7,15 @@ class YinYangChromosome {
     private int gridSize;
     private int chromosomeLength;
     private double fitness;
+    private int generation;
+    
+    public int getGeneration() {
+        return generation;
+    }
+
+    public void setGeneration(int generation) {
+        this.generation = generation;
+    }
 
     public YinYangChromosome(int size) {
         this.gridSize = size;
