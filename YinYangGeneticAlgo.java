@@ -3,17 +3,17 @@ import java.util.ArrayList;
 import java.util.Random;
 
 class YinYangGeneticAlgo {
-    private int populationSize;
+    private int populationSize; 
     private double crossoverRate;
     private double mutationRate;
     private int gridSize;
-    private Random rand;
-    private ArrayList<YinYangChromosome> population;
+    private Random rand; //object random
+    private ArrayList<YinYangChromosome> population; //arraylist untuk menyimpan populasi
     private YinYangFitnessFunction fitnessEvaluator;
-    private YinYangChromosome stateAwal;
+    private YinYangChromosome stateAwal; 
 
-    public YinYangGeneticAlgo(int populationSize, double crossoverRate, double mutationRate, 
-                     int gridSize, long seed, YinYangChromosome stateAwal){
+    //konstruktor
+    public YinYangGeneticAlgo(int populationSize, double crossoverRate, double mutationRate, int gridSize, long seed, YinYangChromosome stateAwal){
         this.populationSize = populationSize;
         this.crossoverRate = crossoverRate;
         this.mutationRate = mutationRate;
@@ -24,13 +24,13 @@ class YinYangGeneticAlgo {
         this.stateAwal = stateAwal;
     }
 
-    // Function 1: Initialize Population
+    // Tahap 1 : Inisiasi populasi
     public void initializePopulation() {
         for (int i = 0; i < populationSize; i++) {
             YinYangChromosome chromosome = new YinYangChromosome(gridSize);
-            // Randomly initialize non-fixed positions
+            // set random value kepada posisi bitset yang bukan bitpermanen/fixedposition
             for (int j = 0; j < gridSize * gridSize; j++) {
-                // kalau bukan fixed position 
+                // cek kalau bukan fixed position 
                 boolean fixed = this.stateAwal.getFixedPositions().get(j);
                 if (!fixed) {
                     chromosome.getBits().set(j, rand.nextBoolean());
@@ -43,29 +43,70 @@ class YinYangGeneticAlgo {
             chromosome.setGeneration(0);
             population.add(chromosome);
         }
+        //panggil metode evaluasi
         evaluatePopulation();
     }
 
-    // Function 2: Evaluate Population
+    // Tahap 2 : evaluasi populasi
     private void evaluatePopulation() {
         for (YinYangChromosome chromosome : population) {
-            double fitness = fitnessEvaluator.evaluate(chromosome);
-            chromosome.setFitness(fitness);
+            //evaluasi masing masing fitness kromosom pada populasi
+            double fitness = fitnessEvaluator.evaluate(chromosome); 
+            //lalu set fitness value pada masing2 kromosom
+            chromosome.setFitness(fitness); 
         }
     }
 
+    //Tahap 3 : seleksi pada populasi 
+    public YinYangChromosome linearRankSelection() {
+        //sort populasi beradasarkan fitness
+        population.sort((a, b) -> Double.compare(b.getFitness(), a.getFitness()));
+        
+        int n = population.size();
+        double totalRank = n * (n + 1) / 2.0;
+        double random = rand.nextDouble() * totalRank;
+        double sum = 0;
+        
+        for (int i = 0; i < n; i++) {
+            sum += (n - i);
+            if (sum > random) {
+                return population.get(i);
+            }
+        }
+        //ambil chromosome yang paling bagus
+        return population.get(0);
+    }
 
-    // Function 4a: Single Point Uniform Crossover
+    //Tahap 3 : seleksi pada populasi 
+    public YinYangChromosome rouletteWheelSelection() {
+        double totalFitness = population.stream()
+                .mapToDouble(YinYangChromosome::getFitness)
+                .sum();
+        
+        double random = rand.nextDouble() * totalFitness;
+        double sum = 0;
+        
+        for (YinYangChromosome chromosome : population) {
+            sum += chromosome.getFitness();
+            if (sum > random) {
+                return chromosome;
+            }
+        }
+        return population.get(population.size() - 1);
+    }
+
+
+   //Tahap 4 : crossover (single point uniform crossover)
     public YinYangChromosome uniformCrossover(YinYangChromosome parent1, YinYangChromosome parent2) {
         YinYangChromosome child = new YinYangChromosome(gridSize);
         
         for (int i = 0; i < gridSize * gridSize; i++) {
             if (parent1.getFixedPositions().get(i)) {
-                // For fixed positions: copy the pre-placed value
+                //copy fixedbits dari parent ke child
                 child.getBits().set(i, parent1.getBits().get(i));
                 child.getFixedPositions().set(i, true);
             } else {
-                // For non-fixed positions: randomly select from parents
+                //copy value bits non fixed kepada child secara random
                 boolean parentValue = rand.nextBoolean() ? 
                     parent1.getBits().get(i) : parent2.getBits().get(i);
                 child.getBits().set(i, parentValue);
@@ -74,22 +115,12 @@ class YinYangGeneticAlgo {
         return child;
     }
 
-    // Function 4b: Mutation
-    public void mutate(YinYangChromosome chromosome) {
-        for (int i = 0; i < gridSize * gridSize; i++) { 
-            // Only mutate non-fixed positions
-            boolean nilaiFixed = chromosome.getFixedPositions().get(i);
-            if (!nilaiFixed && rand.nextDouble() < mutationRate) {
-                chromosome.getBits().flip(i);
-            }
-        }
-    }
-
-    // Extra Function: Two Point Crossover (not used in main algorithm)
+    //Tahap 4 : crossover (two point crossover)
     public YinYangChromosome twoPointCrossover(YinYangChromosome parent1, YinYangChromosome parent2) {
         YinYangChromosome child = new YinYangChromosome(gridSize);
         int length = gridSize * gridSize;
         
+        //set 2point random
         int point1 = rand.nextInt(length);
         int point2 = rand.nextInt(length);
         
@@ -114,91 +145,41 @@ class YinYangGeneticAlgo {
         return child;
     }
 
-    // Extra Function: Linear Rank Selection (not used in main algorithm)
-    public YinYangChromosome linearRankSelection() {
-        // Sort population by fitness
-        population.sort((a, b) -> Double.compare(b.getFitness(), a.getFitness()));
-        
-        int n = population.size();
-        double totalRank = n * (n + 1) / 2.0;
-        double random = rand.nextDouble() * totalRank;
-        double sum = 0;
-        
-        for (int i = 0; i < n; i++) {
-            sum += (n - i);
-            if (sum > random) {
-                return population.get(i);
+    //Tahap 5 Mutasi
+    public void mutate(YinYangChromosome chromosome) {
+        for (int i = 0; i < gridSize * gridSize; i++) { 
+            // mutasi secara random bit yang tidak fixed
+            boolean nilaiFixed = chromosome.getFixedPositions().get(i);
+            if (!nilaiFixed && rand.nextDouble() < mutationRate) {
+                chromosome.getBits().flip(i);
             }
         }
-        return population.get(0);
     }
 
-    // Function 3: Roulette Wheel Selection
-    public YinYangChromosome rouletteWheelSelection() {
-        double totalFitness = population.stream()
-                .mapToDouble(YinYangChromosome::getFitness)
-                .sum();
-        
-        double random = rand.nextDouble() * totalFitness;
-        double sum = 0;
-        
-        for (YinYangChromosome chromosome : population) {
-            sum += chromosome.getFitness();
-            if (sum > random) {
-                return chromosome;
-            }
-        }
-        return population.get(population.size() - 1);
-    }
 
-    // Function 5: Random Number Generator with Seed
+    // Function 6 : Random Number Generator with Seed
     public double getRandomNumber() {
         return rand.nextDouble();
     }
-
     public int getRandomInt(int bound) {
         return rand.nextInt(bound);
     }
 
-    // Main evolution process
-    public void evolve(int generations) {
-        for (int gen = 0; gen < generations; gen++) {
-            ArrayList<YinYangChromosome> newPopulation = new ArrayList<>();
-            
-            while (newPopulation.size() < populationSize) {
-                // Selection
-                YinYangChromosome parent1 = rouletteWheelSelection();
-                YinYangChromosome parent2 = rouletteWheelSelection();
-                
-                // Crossover
-                YinYangChromosome child;
-                if (rand.nextDouble() < crossoverRate) {
-                    child = uniformCrossover(parent1, parent2);
-                } else {
-                    child = new YinYangChromosome(gridSize);
-                    child.getBits().or(parent1.getBits());
-                }
-                
-                // Mutation
-                mutate(child);
-                
-                newPopulation.add(child);
-            }
-            
-            population = newPopulation;
-            evaluatePopulation();
-        }
-    }
-
+    
+    //Main function untuk panggil semua function
     public YinYangChromosome findSolution(int maxGenerations, double targetFitness) {
         int generation = 1;
         YinYangChromosome bestSolution = null;
         double bestFitness = 0;
-    
+        
+        // while loop untuk generasi
         while (generation < maxGenerations) {
+
+
+            //buat populasi baru
             ArrayList<YinYangChromosome> newPopulation = new ArrayList<>();
             
-            // Create new population
+            
             while (newPopulation.size() < populationSize) {
                 // Selection
                 YinYangChromosome parent1 = linearRankSelection();                
@@ -219,16 +200,16 @@ class YinYangGeneticAlgo {
                 // Mutation
                 mutate(child);
                 
-                // Evaluate new child
+                // Evaluate child chromosom
                 double fitness = fitnessEvaluator.evaluate(child);
                 child.setFitness(fitness);
                 
-                // Track best solution
+                // track solusi terbaik
                 if (fitness > bestFitness) {
                     bestFitness = fitness;
                     bestSolution = child;
                     
-                    // If we found a perfect solution
+                    // if jika menemukan solusi terbaik
                     if (bestFitness >= targetFitness) {
                         bestSolution.setGeneration(generation);
                         return bestSolution;
@@ -238,7 +219,7 @@ class YinYangGeneticAlgo {
                 newPopulation.add(child);
             }
             
-            // Replace old population
+            // ubah populasi lama dengan populasi baru
             population = newPopulation;
             generation++;
         }

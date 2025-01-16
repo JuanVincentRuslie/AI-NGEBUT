@@ -2,20 +2,14 @@ import java.util.*;
 
 
 class YinYangChromosome {
-    private BitSet bits;
-    private BitSet fixedPositions;
-    private int gridSize;
-    private int chromosomeLength;
-    private double fitness;
-    private int generation;
+    private BitSet bits; //bitstring untuk menyimpan encoding yinyang
+    private BitSet fixedPositions; //bitstring untuk menandai bits yang permanen
+    private int gridSize; //lebar papan
+    private int chromosomeLength; //panjang kromosom
+    private double fitness; //nilai fitness
+    private int generation; //untuk menyimpan generasi keberapa pada hasil
     
-    public int getGeneration() {
-        return generation;
-    }
-
-    public void setGeneration(int generation) {
-        this.generation = generation;
-    }
+  
 
     public YinYangChromosome(int size) {
         this.gridSize = size;
@@ -24,10 +18,12 @@ class YinYangChromosome {
         this.fixedPositions = new BitSet(chromosomeLength);
     }
 
-    public void setPrePlacedCell(int x, int y, boolean isWhite) {
-        int index = y * gridSize + x;
-        bits.set(index, isWhite);
-        fixedPositions.set(index, true);
+
+    //set bitpermanent 
+    public void setPermanentBits(int x, int y, boolean color) {
+        int index = y * gridSize + x; //konversi dari 2D array ke index 1D
+        bits.set(index, color); //isi value pada encoding bitstring
+        fixedPositions.set(index, true); //tandai bit yang permanen
         // test
         boolean a  = fixedPositions.get(index);
     }
@@ -64,4 +60,11 @@ class YinYangChromosome {
         return fixedPositions;
     }   
     
+    public int getGeneration() {
+        return generation;
+    }
+
+    public void setGeneration(int generation) {
+        this.generation = generation;
+    }
 }
