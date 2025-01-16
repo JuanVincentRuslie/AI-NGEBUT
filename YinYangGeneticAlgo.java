@@ -10,9 +10,10 @@ class YinYangGeneticAlgo {
     private Random rand;
     private ArrayList<YinYangChromosome> population;
     private YinYangFitnessFunction fitnessEvaluator;
+    private YinYangChromosome stateAwal;
 
     public YinYangGeneticAlgo(int populationSize, double crossoverRate, double mutationRate, 
-                     int gridSize, long seed) {
+                     int gridSize, long seed, YinYangChromosome stateAwal){
         this.populationSize = populationSize;
         this.crossoverRate = crossoverRate;
         this.mutationRate = mutationRate;
@@ -20,6 +21,7 @@ class YinYangGeneticAlgo {
         this.rand = new Random(seed);
         this.fitnessEvaluator = new YinYangFitnessFunction();
         this.population = new ArrayList<>();
+        this.stateAwal = stateAwal;
     }
 
     // Function 1: Initialize Population
@@ -28,8 +30,14 @@ class YinYangGeneticAlgo {
             YinYangChromosome chromosome = new YinYangChromosome(gridSize);
             // Randomly initialize non-fixed positions
             for (int j = 0; j < gridSize * gridSize; j++) {
-                if (!chromosome.getFixedPositions().get(j)) {
+                // kalau bukan fixed position 
+                boolean fixed = this.stateAwal.getFixedPositions().get(j);
+                if (!fixed) {
                     chromosome.getBits().set(j, rand.nextBoolean());
+                }else{
+                    boolean nilaiFixed = this.stateAwal.getBits().get(j);
+                    chromosome.getBits().set(j,nilaiFixed);
+                    chromosome.getFixedPositions().set(j, true);
                 }
             }
             population.add(chromosome);
@@ -86,7 +94,8 @@ class YinYangGeneticAlgo {
     public void mutate(YinYangChromosome chromosome) {
         for (int i = 0; i < gridSize * gridSize; i++) { 
             // Only mutate non-fixed positions
-            if (!chromosome.getFixedPositions().get(i) && rand.nextDouble() < mutationRate) {
+            boolean nilaiFixed = chromosome.getFixedPositions().get(i);
+            if (!nilaiFixed && rand.nextDouble() < mutationRate) {
                 chromosome.getBits().flip(i);
             }
         }
@@ -200,6 +209,7 @@ class YinYangGeneticAlgo {
                 } else {
                     child = new YinYangChromosome(gridSize);
                     child.getBits().or(parent1.getBits()); // copy parent1
+                    child.getFixedPositions().or(parent1.getFixedPositions());
                 }
                 
                 // Mutation

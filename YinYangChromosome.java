@@ -19,11 +19,12 @@ class YinYangChromosome {
         int index = y * gridSize + x;
         bits.set(index, isWhite);
         fixedPositions.set(index, true);
-        
+        // test
+        boolean a  = fixedPositions.get(index);
     }
 
     public boolean getCellColor(int x, int y) {
-        return bits.get(y * gridSize + x);
+        return bits.get(x * gridSize + y);
     }
 
     public void setCellColor(int x, int y, boolean value) {

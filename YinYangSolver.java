@@ -69,7 +69,7 @@ public class YinYangSolver {
         
 
         System.out.println("initialize GA");
-        YinYangGeneticAlgo GA = new YinYangGeneticAlgo(populationsize, crossoverRate, mutationRate, gridsize, randomseed);
+        YinYangGeneticAlgo GA = new YinYangGeneticAlgo(populationsize, crossoverRate, mutationRate, gridsize, randomseed, stateAwal);
         GA.initializePopulation();
 
         double targetFitness = 100;
@@ -89,8 +89,8 @@ public class YinYangSolver {
         System.out.println("Solution found with fitness: " + solution.getFitness());
         System.out.println("Grid:");
         
-        for (int y = 0; y < solution.getGridSize(); y++) {
-            for (int x = 0; x < solution.getGridSize(); x++) {
+        for (int x = 0; x < solution.getGridSize(); x++) {
+            for (int y = 0; y < solution.getGridSize(); y++) {
                 if (solution.getCellColor(x, y)) {
                     System.out.print("W "); 
                 } else {
