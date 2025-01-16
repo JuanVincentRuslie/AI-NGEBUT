@@ -190,7 +190,7 @@ class YinYangGeneticAlgo {
     }
 
     public YinYangChromosome findSolution(int maxGenerations, double targetFitness) {
-        int generation = 0;
+        int generation = 1;
         YinYangChromosome bestSolution = null;
         double bestFitness = 0;
     
@@ -207,7 +207,7 @@ class YinYangGeneticAlgo {
                 YinYangChromosome child = null;
                 if (rand.nextDouble() < crossoverRate) {
                     child = uniformCrossover(parent1, parent2);
-                    child.setGeneration(generation+1);
+                    child.setGeneration(generation);
                 } else {
                     child = new YinYangChromosome(gridSize);
                     child.getBits().or(parent1.getBits()); // copy parent1
