@@ -17,3 +17,14 @@ puzzle :
 0.7
 0.001
 3
+
+w w w w 
+w b w b 
+w b w b 
+w b b b 
+
+↑ ↓
+
+w w w w | w b w b 
+    ↑ ↓
+w w w b | w b w b 

@@ -62,8 +62,6 @@ class YinYangChromosome {
 
     public BitSet getFixedPositions() {
         return fixedPositions;
-    }
-
-    
+    }   
     
 }

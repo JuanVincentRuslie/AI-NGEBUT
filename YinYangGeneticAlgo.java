@@ -54,23 +54,6 @@ class YinYangGeneticAlgo {
         }
     }
 
-    // Function 3: Roulette Wheel Selection
-    public YinYangChromosome rouletteWheelSelection() {
-        double totalFitness = population.stream()
-                .mapToDouble(YinYangChromosome::getFitness)
-                .sum();
-        
-        double random = rand.nextDouble() * totalFitness;
-        double sum = 0;
-        
-        for (YinYangChromosome chromosome : population) {
-            sum += chromosome.getFitness();
-            if (sum > random) {
-                return chromosome;
-            }
-        }
-        return population.get(population.size() - 1);
-    }
 
     // Function 4a: Single Point Uniform Crossover
     public YinYangChromosome uniformCrossover(YinYangChromosome parent1, YinYangChromosome parent2) {
@@ -150,6 +133,24 @@ class YinYangGeneticAlgo {
         return population.get(0);
     }
 
+    // Function 3: Roulette Wheel Selection
+    public YinYangChromosome rouletteWheelSelection() {
+        double totalFitness = population.stream()
+                .mapToDouble(YinYangChromosome::getFitness)
+                .sum();
+        
+        double random = rand.nextDouble() * totalFitness;
+        double sum = 0;
+        
+        for (YinYangChromosome chromosome : population) {
+            sum += chromosome.getFitness();
+            if (sum > random) {
+                return chromosome;
+            }
+        }
+        return population.get(population.size() - 1);
+    }
+
     // Function 5: Random Number Generator with Seed
     public double getRandomNumber() {
         return rand.nextDouble();
@@ -200,8 +201,8 @@ class YinYangGeneticAlgo {
             // Create new population
             while (newPopulation.size() < populationSize) {
                 // Selection
-                YinYangChromosome parent1 = rouletteWheelSelection();
-                YinYangChromosome parent2 = rouletteWheelSelection();
+                YinYangChromosome parent1 = linearRankSelection();                
+                YinYangChromosome parent2 = linearRankSelection();
                 
                 // Crossover
                 YinYangChromosome child = null;
@@ -229,6 +230,7 @@ class YinYangGeneticAlgo {
                     
                     // If we found a perfect solution
                     if (bestFitness >= targetFitness) {
+                        bestSolution.setGeneration(generation);
                         return bestSolution;
                     }
                 }
@@ -240,7 +242,7 @@ class YinYangGeneticAlgo {
             population = newPopulation;
             generation++;
         }
-        
+        bestSolution.setGeneration(generation);
         return bestSolution;
     }
 }

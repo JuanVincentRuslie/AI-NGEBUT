@@ -1,10 +1,7 @@
 import java.util.*;
 
 public class YinYangFitnessFunction {
-    
-   
 
-    
     public double evaluate(YinYangChromosome chromosome){
         int fitness = 0;
         // putih disconected
