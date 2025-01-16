@@ -15,9 +15,9 @@ class YinYangChromosome {
         this.fixedPositions = new BitSet(chromosomeLength);
     }
 
-    public void setPrePlacedCell(int x, int y, boolean isBlack) {
+    public void setPrePlacedCell(int x, int y, boolean isWhite) {
         int index = y * gridSize + x;
-        bits.set(index, isBlack);
+        bits.set(index, isWhite);
         fixedPositions.set(index, true);
     }
 
@@ -52,4 +52,5 @@ class YinYangChromosome {
     public BitSet getFixedPositions() {
         return fixedPositions;
     }
+    
 }

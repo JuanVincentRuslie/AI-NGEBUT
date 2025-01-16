@@ -1,0 +1,86 @@
+import java.util.*;
+
+public class YinYangSolver {
+    public static void main(String[] args) {
+        int gridsize;
+        char[][] papan;
+        int populationsize;
+        double crossoverRate;
+        double mutationRate;
+        int randomseed;
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("please enter puzzle size : ");
+
+        gridsize = scanner.nextInt();
+
+        papan = new char[gridsize][gridsize];
+
+        System.out.println("please enter puzzle placement ('.' for null, 'w' for white, 'b' for black ) : ");
+
+        int i,j,k;
+        for(i = 0; i < gridsize; i++){
+            for(j = 0; j < gridsize; j++){
+                papan[i][j] = scanner.next().charAt(0);
+            }
+        }
+
+        
+
+        System.out.println("enter population size : ");
+        populationsize = scanner.nextInt();
+        System.out.println("enter crossover rate : ");
+        crossoverRate = scanner.nextDouble();
+        System.out.println("enter mutation rate : ");
+        mutationRate = scanner.nextDouble();
+        System.out.println("enter seed : ");
+        randomseed = scanner.nextInt();
+
+        
+        System.out.println("test data : ");
+
+        System.out.println("puzzle : ");
+
+        for(i = 0; i < gridsize; i++){
+            for(j = 0; j < gridsize; j++){
+                System.out.print(papan[i][j] + " ");
+            }
+            System.out.println();
+        }
+        
+        System.out.println(gridsize);
+        System.out.println(populationsize);
+        System.out.println(crossoverRate);
+        System.out.println(mutationRate);
+        System.out.println(randomseed);
+
+        YinYangChromosome stateAwal = new YinYangChromosome(gridsize);
+
+        for(i = 0; i < gridsize; i++){
+            for(j = 0; j < gridsize; j++){
+                if(papan[i][j] == 'w'){
+                    stateAwal.setPrePlacedCell(i,j,false);
+                }else if(papan[i][j] == 'b'){
+                    stateAwal.setPrePlacedCell(i,j,true);
+                }
+            }
+        }
+        
+
+        System.out.println("initialize GA");
+        YinYangGeneticAlgo GA = new YinYangGeneticAlgo(populationsize, crossoverRate, mutationRate, gridsize, randomseed);
+        GA.initializePopulation();
+
+        double targetFitness = gridsize*gridsize;
+        int maxgeneration = 1000;
+
+        YinYangChromosome solution = GA.findSolution(maxgeneration, targetFitness);
+
+        if (solution != null) {
+            System.out.println("Solution found");
+        } else {
+            System.out.println("No solution found");
+        }
+    }
+}

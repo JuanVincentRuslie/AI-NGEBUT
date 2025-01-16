@@ -82,15 +82,15 @@ class YinYangGeneticAlgo {
         return child;
     }
 
+    // Function 4b: Mutation
     public void mutate(YinYangChromosome chromosome) {
-        for (int i = 0; i < gridSize * gridSize; i++) {
+        for (int i = 0; i < gridSize * gridSize; i++) { 
             // Only mutate non-fixed positions
-            if (!chromosome.getFixedPositions().get(i) && 
-                rand.nextDouble() < mutationRate) {
+            if (!chromosome.getFixedPositions().get(i) && rand.nextDouble() < mutationRate) {
                 chromosome.getBits().flip(i);
             }
-            // Fixed positions are never mutated
         }
+    }
 
     // Extra Function: Two Point Crossover (not used in main algorithm)
     public YinYangChromosome twoPointCrossover(YinYangChromosome parent1, YinYangChromosome parent2) {
@@ -177,5 +177,57 @@ class YinYangGeneticAlgo {
             population = newPopulation;
             evaluatePopulation();
         }
+    }
+
+    public YinYangChromosome findSolution(int maxGenerations, double targetFitness) {
+        int generation = 0;
+        YinYangChromosome bestSolution = null;
+        double bestFitness = 0;
+    
+        while (generation < maxGenerations) {
+            ArrayList<YinYangChromosome> newPopulation = new ArrayList<>();
+            
+            // Create new population
+            while (newPopulation.size() < populationSize) {
+                // Selection
+                YinYangChromosome parent1 = rouletteWheelSelection();
+                YinYangChromosome parent2 = rouletteWheelSelection();
+                
+                // Crossover
+                YinYangChromosome child = null;
+                if (rand.nextDouble() < crossoverRate) {
+                    child = uniformCrossover(parent1, parent2);
+                } else {
+                    child = new YinYangChromosome(gridSize);
+                    child.getBits().or(parent1.getBits()); // copy parent1
+                }
+                
+                // Mutation
+                mutate(child);
+                
+                // Evaluate new child
+                double fitness = fitnessEvaluator.evaluate(child);
+                child.setFitness(fitness);
+                
+                // Track best solution
+                if (fitness > bestFitness) {
+                    bestFitness = fitness;
+                    bestSolution = child;
+                    
+                    // If we found a perfect solution
+                    if (bestFitness >= targetFitness) {
+                        return bestSolution;
+                    }
+                }
+                
+                newPopulation.add(child);
+            }
+            
+            // Replace old population
+            population = newPopulation;
+            generation++;
+        }
+        
+        return bestSolution;
     }
 }
