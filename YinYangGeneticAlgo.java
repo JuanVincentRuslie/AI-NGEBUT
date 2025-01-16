@@ -207,10 +207,12 @@ class YinYangGeneticAlgo {
                 YinYangChromosome child = null;
                 if (rand.nextDouble() < crossoverRate) {
                     child = uniformCrossover(parent1, parent2);
+                    child.setGeneration(generation+1);
                 } else {
                     child = new YinYangChromosome(gridSize);
                     child.getBits().or(parent1.getBits()); // copy parent1
                     child.getFixedPositions().or(parent1.getFixedPositions());
+                    child.setGeneration(parent1.getGeneration());
                 }
                 
                 // Mutation
@@ -230,7 +232,7 @@ class YinYangGeneticAlgo {
                         return bestSolution;
                     }
                 }
-                child.setGeneration(child.getGeneration()+1);
+                
                 newPopulation.add(child);
             }
             
