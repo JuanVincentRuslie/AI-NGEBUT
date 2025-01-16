@@ -9,17 +9,17 @@ public class MainTest {
         //     {'w','v','w','v'}
         // };
         
-        char[] papan2 =
-            {'w','w','v','b',
-            'w','b','b','b',
-            'w','b','b','b',
-            'w','v','w','v'};
+        // char[] papan2 =
+        //     {'w','w','v','b',
+        //     'w','b','b','b',
+        //     'w','b','b','b',
+        //     'w','v','w','v'};
         
         // YinYang permainan = new YinYang(papan);
         
-        YinYang2 permainanan2 = new YinYang2(4, papan2);
+        // YinYang2 permainanan2 = new YinYang2(4, papan2);
         
-        System.out.println("array char[] " +permainanan2.fitnessFunction());
+        // System.out.println("array char[] " +permainanan2.fitnessFunction());
         // System.out.println("array char[][] " +permainan.disconected_area(papan, 'w','v'));
         
         BitSet bitSet = new BitSet(16);

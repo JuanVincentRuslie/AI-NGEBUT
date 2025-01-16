@@ -12,18 +12,17 @@ public class YinYang3 {
     public double fitnessFunction(){
         int fitness = 0;
         // putih disconected
-        // fitness += disconected_area(papan, true, panjang);
+        fitness += disconected_area(papan, true, panjang);
         // hitam disconected
-        // fitness += disconected_area(papan, false, panjang);
+        fitness += disconected_area(papan, false, panjang);
 
         // daerah puth
-        // fitness += penaltyDaerah(papan, true, panjang);
-
+        fitness += penaltyDaerah(papan, true, panjang);
         // daerah hitam
         fitness += penaltyDaerah(papan, false, panjang);
         
-        // return (((panjang*panjang*1.0)-(fitness*1.0))*100/(panjang*panjang));
-        return fitness;
+        return (((panjang*panjang*1.0)-(fitness*1.0))*100/(panjang*panjang));
+        // return fitness;
     }
 
     // fitness function untuk area disconected
