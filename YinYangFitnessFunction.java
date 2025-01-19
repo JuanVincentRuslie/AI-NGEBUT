@@ -101,7 +101,7 @@ public class YinYangFitnessFunction {
 
     private static Integer floodFillDaerah(BitSet papan, boolean[]visited,  int x, int y, boolean symbol, int panjang, Integer jumlahTitik){
         //error handling, jika titik x atau y sudah di ujung, sudah di visited, dan symbolnya sama
-        if(x>=panjang-1 ||y >=panjang-1 || papan.get((x*panjang)+y)!=symbol  || visited[(x*panjang)+y]==true){
+        if(x<0||x>=panjang-1 ||y >=panjang-1 || papan.get((x*panjang)+y)!=symbol  || visited[(x*panjang)+y]==true){
             return jumlahTitik ;
         }  
 
@@ -118,6 +118,7 @@ public class YinYangFitnessFunction {
 
             jumlahTitik=floodFillDaerah(papan, visited, x, y+1, symbol, panjang, jumlahTitik);
             jumlahTitik=floodFillDaerah(papan, visited, x+1, y, symbol, panjang, jumlahTitik);
+            jumlahTitik=floodFillDaerah(papan, visited, x-1, y, symbol, panjang, jumlahTitik);
         }
         return jumlahTitik;
     }
