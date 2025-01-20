@@ -87,29 +87,37 @@ public class FileTochromosomeConverter {
      * Saves a chromosome back to a file (useful for debugging or solution output)
      */
     public static void saveToFile(YinYangChromosome chromosome, String filename) throws IOException {
-        int gridSize = chromosome.getGridSize();
+        if (chromosome == null) {
+            throw new IllegalArgumentException("Chromosome cannot be null");
+        }
+    
         try (java.io.PrintWriter writer = new java.io.PrintWriter(filename)) {
-            writer.write("Solusi:\n");
+            // Write header information
+            writer.println("Solution found:");
+            writer.println("Fitness: " + chromosome.getFitness());
+            writer.println("Generation: " + chromosome.getGeneration());
+            writer.println("\nGrid:");
+    
+            int gridSize = chromosome.getGridSize();
+
+            
+
+            // Write the grid
             for (int i = 0; i < gridSize; i++) {
-                StringBuilder line = new StringBuilder();
                 for (int j = 0; j < gridSize; j++) {
-                    if (chromosome.isFixed(j, i)) {
-                        line.append(chromosome.getCellColor(j, i) ? "W" : "B");
+                    if (chromosome.getCellColor(i, j)) {
+                        writer.print("W ");
                     } else {
-                        line.append(".");
-                    }
-                    if (j < gridSize - 1) {
-                        line.append(" ");
+                        writer.print("B ");
                     }
                 }
-                
-                writer.println(line);          
-                
+                writer.println(); // Move to the next line after each row
             }
-            writer.write("\n\nLaporan:\n");
-            writer.write("Seed: " + YinYangParameter.RANDOM_SEED + "\n");                        // Menyertakan seed yang digunakan dalam laporan
-            writer.write("Generasi: " + chromosome.getGeneration() + "\n");                // Menyertakan jumlah generasi
-            writer.write("Fitness Akhir: " + chromosome.getFitness() + "\n");
+    
+            // Additional report information
+            writer.println("\nReport:");
+            writer.println("Seed: " + YinYangParameter.RANDOM_SEED);
         }
     }
+    
 }

@@ -1,11 +1,12 @@
-Solusi:
-. . W .
-. B . .
-. . W .
-W . . .
+Solution found:
+Fitness: 100.0
+Generation: 4
 
+Grid:
+W W W W 
+W B B W 
+W B W W 
+B B B W 
 
-Laporan:
+Report:
 Seed: 9
-Generasi: 4
-Fitness Akhir: 100.0

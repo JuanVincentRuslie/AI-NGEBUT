@@ -41,8 +41,11 @@ public class YinYangSolvernew {
         // saveResultToFile(outputFile, solution);
 
         //tambahan
+        printSolution(solution);
         FileTochromosomeConverter.saveToFile(solution, outputFile);
     }
+
+    
 
     // /**
     //  * Menyimpan solusi dan laporan ke dalam file output.
