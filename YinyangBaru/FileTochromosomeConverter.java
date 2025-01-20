@@ -89,6 +89,7 @@ public class FileTochromosomeConverter {
     public static void saveToFile(YinYangChromosome chromosome, String filename) throws IOException {
         int gridSize = chromosome.getGridSize();
         try (java.io.PrintWriter writer = new java.io.PrintWriter(filename)) {
+            writer.write("Solusi:\n");
             for (int i = 0; i < gridSize; i++) {
                 StringBuilder line = new StringBuilder();
                 for (int j = 0; j < gridSize; j++) {
@@ -101,8 +102,14 @@ public class FileTochromosomeConverter {
                         line.append(" ");
                     }
                 }
-                writer.println(line);
+                
+                writer.println(line);          
+                
             }
+            writer.write("\n\nLaporan:\n");
+            writer.write("Seed: " + YinYangParameter.RANDOM_SEED + "\n");                        // Menyertakan seed yang digunakan dalam laporan
+            writer.write("Generasi: " + chromosome.getGeneration() + "\n");                // Menyertakan jumlah generasi
+            writer.write("Fitness Akhir: " + chromosome.getFitness() + "\n");
         }
     }
 }

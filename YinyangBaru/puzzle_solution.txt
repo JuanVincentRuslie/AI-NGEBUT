@@ -1,0 +1,11 @@
+Solusi:
+. . W .
+. B . .
+. . W .
+W . . .
+
+
+Laporan:
+Seed: 9
+Generasi: 4
+Fitness Akhir: 100.0

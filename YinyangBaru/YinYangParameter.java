@@ -6,6 +6,7 @@ import java.util.Random;
 
 public class YinYangParameter {
     //tidak jadi dipakai
+    
     // Seed untuk keperluan reproduksibilitas (agar hasilnya konsisten)
     // public static final long SEED = new Random().nextLong(1000);
     // public static final long SEED = 151;    // SEED var untuk checker, debug dan testing
