@@ -1,3 +1,4 @@
+package YinyangOg;
 import java.util.*;
 
 public class YinYangSolver {
@@ -69,7 +70,7 @@ public class YinYangSolver {
         //convert papan yinyang ke chromosome
 
         for(i = 0; i < gridsize; i++){
-            for(j = 0; j < gridsize; j++){
+            for(j = 0; j < gridsize; j++){ //looping cari permanent bits yang ditandai dengan w / b.
                 if(papan[i][j] == 'w'){
                     stateAwal.setPermanentBits(j,i,true);  //color true/1 untuk putih
                 }else if(papan[i][j] == 'b'){

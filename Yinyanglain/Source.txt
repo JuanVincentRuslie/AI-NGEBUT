@@ -1,0 +1,24 @@
+Source
+
+--
+Yin-Yang Puzzle: https://www.puzzle-yin-yang.com/
+Yin-Yang Puzzle Solver: https://www.noq.solutions/yinyang
+Yin-yang Documentation: https://docs.google.com/document/d/11VSGOSFXeKie6hPsAWADmxT6TLiJuIVggP1ll6621As/edit?usp=sharing
+
+--
+Yin-Yang Puzzle Solver: https://github.com/abtinfi/simple-Yin-Yang-Puzzle-Solver (C++)
+Genetic Algorithm to Solve a Puzzle: https://pdfs.semanticscholar.org/6765/2b5d31688d06d0756bf856eccd3cc86785e8.pdf
+Genetic Puzzle Solver: https://github.com/Golto/genetic_puzzle (Python)
+Binary Coded Genetic Algorithm: https://github.com/NajeebClouds/Binary-Coded-Genetic-Algorithm (MatLab)
+
+--
+Other Source:
+
+ChatGPT: https://chat.openai.com/
+Blackbox AI: https://https://www.blackbox.ai/
+
+--
+MS Teams: 
+
+Code: https://unparacid.sharepoint.com/:f:/r/teams/57-ArtificialIntelligence/Class%20Materials/Kode?csf=1&web=1&e=68N1d2
+Lesson materials: https://unparacid.sharepoint.com/:f:/r/teams/57-ArtificialIntelligence/Class%20Materials/Slides?csf=1&web=1&e=FoXgoK

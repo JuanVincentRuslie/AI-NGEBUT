@@ -1,3 +1,4 @@
+package YinyangOg;
 public class YinYang{
     // attribute
     int Heuristiik;

@@ -1,3 +1,4 @@
+package YinyangBaru;
 import java.util.*;
 
 public class YinYangFitnessFunction {

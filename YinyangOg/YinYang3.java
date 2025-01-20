@@ -1,3 +1,4 @@
+package YinyangOg;
 import java.util.BitSet;
 
 public class YinYang3 {

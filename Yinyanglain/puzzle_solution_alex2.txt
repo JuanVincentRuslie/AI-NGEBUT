@@ -1,0 +1,13 @@
+Solusi:
+W W W W W B 
+W B B W W W 
+B B W W W W 
+B B W W W W 
+W W W B B B 
+W W B W B W 
+
+
+Laporan:
+Seed: 921
+Generasi: 1000
+Fitness Akhir: 19.444444444444443

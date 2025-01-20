@@ -1,4 +1,6 @@
+package YinyangBaru;
 import java.util.ArrayList;
+import java.util.List;
 // import java.util.BitSet;
 import java.util.Random;
 
@@ -7,18 +9,18 @@ class YinYangGeneticAlgo {
     private double crossoverRate;
     private double mutationRate;
     private int gridSize;
-    private Random rand; //object random
+    private Random rand; 
     private ArrayList<YinYangChromosome> population; //arraylist untuk menyimpan populasi
     private YinYangFitnessFunction fitnessEvaluator;
     private YinYangChromosome stateAwal; 
 
     //konstruktor
-    public YinYangGeneticAlgo(int populationSize, double crossoverRate, double mutationRate, int gridSize, long seed, YinYangChromosome stateAwal){
-        this.populationSize = populationSize;
-        this.crossoverRate = crossoverRate;
-        this.mutationRate = mutationRate;
-        this.gridSize = gridSize;
-        this.rand = new Random(seed);
+    public YinYangGeneticAlgo(YinYangChromosome stateAwal){
+        this.populationSize = YinYangParameter.POPULATION_SIZE;
+        this.crossoverRate = YinYangParameter.CROSSOVER_RATE;
+        this.mutationRate = YinYangParameter.MUTATION_RATE;
+        this.gridSize = stateAwal.getGridSize();
+        this.rand = new Random(YinYangParameter.RANDOM_SEED); //Random number generator with seed
         this.fitnessEvaluator = new YinYangFitnessFunction();
         this.population = new ArrayList<>();
         this.stateAwal = stateAwal;
@@ -95,6 +97,28 @@ class YinYangGeneticAlgo {
         return population.get(population.size() - 1);
     }
 
+    // Tambahan
+    // Tahap 3 : seleksi pada populasi 
+    public YinYangChromosome tournamentSelection() {
+        // Chromosome best = null; // Menyimpan individu terbaik dari turnamen
+
+        YinYangChromosome best =  null;
+        int tournamentSize = 5; // Ukuran turnamen (jumlah kandidat yang dipilih)
+
+        // Melakukan seleksi untuk ukuran turnamen yang ditentukan
+        for (int i = 0; i < tournamentSize; i++) {
+            // Memilih kandidat acak dari populasi
+            // Chromosome candidate = population.get(GlobalVariable.RANDOM.nextInt(population.size()));
+
+            //tambahan
+            YinYangChromosome candidate = population.get(rand.nextInt(population.size()));
+            // Memilih kandidat dengan fitness terbaik
+            if (best == null || candidate.getFitness() < best.getFitness()) {
+                best = candidate; // Update individu terbaik
+            }
+        }
+        return best; // Mengembalikan individu terbaik dari turnamen
+    }
 
    //Tahap 4 : crossover (single point uniform crossover)
     public YinYangChromosome uniformCrossover(YinYangChromosome parent1, YinYangChromosome parent2) {
@@ -157,7 +181,7 @@ class YinYangGeneticAlgo {
     }
 
 
-    // Function 6 : Random Number Generator with Seed
+    // Function 6 : Quick function Random Number Generator 
     public double getRandomNumber() {
         return rand.nextDouble();
     }
@@ -167,7 +191,11 @@ class YinYangGeneticAlgo {
 
     
     //Main function untuk panggil semua function
-    public YinYangChromosome findSolution(int maxGenerations, double targetFitness) {
+    public YinYangChromosome findSolution() {
+        // Tambahan
+        int maxGenerations = YinYangParameter.MAX_GENERATIONS;
+        double targetFitness = YinYangParameter.TARGET_FINTESS;
+
         int generation = 1;
         YinYangChromosome bestSolution = null;
         double bestFitness = 0;

@@ -1,0 +1,11 @@
+Solusi:
+B B W W 
+W B W B 
+B B W B 
+B W W B 
+
+
+Laporan:
+Seed: 884
+Generasi: 1000
+Fitness Akhir: 87.5

@@ -1,0 +1,142 @@
+. . W .
+. B . .
+. . W .
+B . . .
+
+
+5.2 Eksperimen 4x4, varian ukuran populasi [50, 100, 200, 500], final score resulted after 10 tries
+                        | Tournament | Roulette Wheel | Rank Selection | 
+POPULATION_SIZE         :   50
+MAX_GENERATIONS         :   1000
+MUTATION_RATE           :   0.1
+CROSSOVER_RATE          :   0.7
+Fitness                 :   58              74                80
+Duration (ms)           :   97              122               163
+
+POPULATION_SIZE         :   100
+MAX_GENERATIONS         :   1000
+MUTATION_RATE           :   0.1
+CROSSOVER_RATE          :   0.7
+Fitness                 :   58              83                 83
+Duration (ms)           :   137             182                235
+
+POPULATION_SIZE         :   200
+MAX_GENERATIONS         :   1000
+MUTATION_RATE           :   0.1
+CROSSOVER_RATE          :   0.7
+Fitness                 :   57              83                 85
+Duration (ms)           :   229             320                577
+
+POPULATION_SIZE         :   500
+MAX_GENERATIONS         :   1000
+MUTATION_RATE           :   0.1
+CROSSOVER_RATE          :   0.7
+Fitness                 :   55.4            86                 87
+Duration (ms)           :   708             1187               572
+
+
+==================================================================================================
+
+5.3 Eksperimen 4x4, varian kemungkinan crossover [0.1, 0.5, 0.7, 0.9], final score resulted after 10 tries
+                        | Tournament | Roulette Wheel | Rank Selection |
+POPULATION_SIZE         :   10
+MAX_GENERATIONS         :   1000
+MUTATION_RATE           :   0.1
+CROSSOVER_RATE          :   0.1
+Fitness                 :   58              79                83
+Duration (ms)           :   131             177               231
+
+POPULATION_SIZE         :   10
+MAX_GENERATIONS         :   1000
+MUTATION_RATE           :   0.1
+CROSSOVER_RATE          :   0.5
+Fitness                 :   58              82                 84
+Duration (ms)           :   133             176                240
+
+POPULATION_SIZE         :   10
+MAX_GENERATIONS         :   1000
+MUTATION_RATE           :   0.1
+CROSSOVER_RATE          :   0.7
+Fitness                 :   58               79                 82
+Duration (ms)           :   136              176                231
+
+POPULATION_SIZE         :   10
+MAX_GENERATIONS         :   1000
+MUTATION_RATE           :   0.1
+CROSSOVER_RATE          :   0.9
+Fitness                 :   58                80                87
+Duration (ms)           :   132               184               234
+
+==================================================================================================
+
+5.4 Eksperimen 4x4, varian kemungkinan mutasi [0.01, 0.05, 0.1, 0.2], final score resulted after 10 tries
+                        | Tournament | Roulette Wheel | Rank Selection |
+POPULATION_SIZE         :   100
+MAX_GENERATIONS         :   1000
+MUTATION_RATE           :   0.01
+CROSSOVER_RATE          :   0.7
+Fitness                 :   56                85                86
+Duration (ms)           :   140               166               244
+
+POPULATION_SIZE         :   100
+MAX_GENERATIONS         :   1000
+MUTATION_RATE           :   0.05
+CROSSOVER_RATE          :   0.7
+Fitness                 :   56                86                 82
+Duration (ms)           :   143               177                238
+
+POPULATION_SIZE         :   10
+MAX_GENERATIONS         :   1000
+MUTATION_RATE           :   0.1
+CROSSOVER_RATE          :   0.7
+Fitness                 :   58                82                  85
+Duration (ms)           :   133               171                 244
+
+POPULATION_SIZE         :   100
+MAX_GENERATIONS         :   1000
+MUTATION_RATE           :   0.2
+CROSSOVER_RATE          :   0.7
+Fitness                 :   57                82                  85
+Duration (ms)           :   129               176                 234
+
+==================================================================================================
+
+5.5 Eksperimen 4x4, varian metode seleksi orangtua [Tournament, Roulette Wheel, Ranking], final score resulted after 10 tries
+
+I. Tournament
+POPULATION_SIZE         :   1000
+MAX_GENERATIONS         :   10000
+MUTATION_RATE           :   0.2
+CROSSOVER_RATE          :   0.7
+Fitness                 :   53
+Duration (ms)           :   8984
+
+II. Roulette Wheel
+POPULATION_SIZE         :   1000
+MAX_GENERATIONS         :   10000
+MUTATION_RATE           :   0.2
+CROSSOVER_RATE          :   0.7
+Fitness                 :   91
+Duration (ms)           :   32037
+
+III. Rank Selection
+POPULATION_SIZE         :   1000
+MAX_GENERATIONS         :   10000
+MUTATION_RATE           :   0.2
+CROSSOVER_RATE          :   0.7
+Fitness                 :   88
+Duration (ms)           :   63823
+
+
+
+
+
+
+iseng nyoba :/
+
+POPULATION_SIZE         :   1000
+MAX_GENERATIONS         :   1000000
+MUTATION_RATE           :   0.2
+CROSSOVER_RATE          :   0.9
+Fitness                 :   53 (wtf?)
+Duration (ms)           :   813712
