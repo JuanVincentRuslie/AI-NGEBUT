@@ -15,8 +15,8 @@ public class YinYangFitnessFunction {
         // daerah hitam
         fitness += penaltyDaerah(chromosome.getBits(), false, chromosome.getGridSize());
         
-        return (((chromosome.getGridSize()*chromosome.getGridSize()*1.0)-(fitness*1.0))*100/(chromosome.getGridSize()*chromosome.getGridSize()));
-        // return fitness;
+        // return (((chromosome.getGridSize()*chromosome.getGridSize()*1.0)-(fitness*1.0))*100/(chromosome.getGridSize()*chromosome.getGridSize()));
+        return fitness;
     }
 
     // fitness function untuk area disconected

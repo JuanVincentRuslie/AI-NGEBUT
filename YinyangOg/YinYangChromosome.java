@@ -18,7 +18,13 @@ class YinYangChromosome {
         this.bits = new BitSet(chromosomeLength);
         this.fixedPositions = new BitSet(chromosomeLength);
     }
-
+    
+    public YinYangChromosome(int size, BitSet bits) {
+        this.gridSize = size;
+        this.chromosomeLength = size * size;
+        this.bits = bits;
+        this.fixedPositions = new BitSet(chromosomeLength);
+    }
 
     //set bitpermanent 
     public void setPermanentBits(int x, int y, boolean color) {
